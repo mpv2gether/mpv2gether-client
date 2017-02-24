@@ -1,6 +1,6 @@
 {
   "name": "mpv2gether-client",
-  "productName": "Mpv2getherClient",
+  "productName": "mpv2gether",
   "version": "0.0.0",
   "description": "watch stuff from mpv - together",
   "license": "MIT",
