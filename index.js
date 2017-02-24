@@ -18,7 +18,8 @@ function onClosed() {
 function createMainWindow() {
 	const win = new electron.BrowserWindow({
 		width: 1280 + 200, // +200 for chat window
-		height: 720
+		height: 720,
+		frame: false
 	});
 
 	win.loadURL(`file://${__dirname}/index.html`);

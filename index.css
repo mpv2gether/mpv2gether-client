@@ -24,6 +24,21 @@ h2.subtitle {
 
 /* GENERAL STYLE */
 
+.draggable {
+	width: 100%;
+	height: 2em;
+	top: 0;
+	left: 0;
+	position: absolute;
+	-webkit-user-select: none;
+	-webkit-app-region: drag;
+	background-color: #313131;
+}
+
+.hero {
+	margin-top: 2em;
+}
+
 body {
 	background: url(assets/title-background.jpg) no-repeat center center fixed;
 	background-size: cover;
