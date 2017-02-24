@@ -2,16 +2,193 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Electron boilerplate</title>
+		<title>this title will never be seen</title>
 		<link rel="stylesheet" href="index.css">
+
+		<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+
+		<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+
+		<script>if (window.module) module = window.module;</script>
 	</head>
 	<body>
-		<div class="container">
-			<header>
-				<h1>Electron boilerplate</h1>
-			</header>
-			<section class="main"></section>
-			<footer></footer>
+		<section class="hero is-dark">
+			<div class="hero-body">
+				<div class="container">
+					<h1 class="title">
+						mpv2gether
+					</h1>
+					<h2 class="subtitle">
+						watch videos from mpv - together
+					</h2>
+				</div>
+			</div>
+		</section>
+
+		<div class="intro-ui">
+			<div class="container section is-fullheight">
+				<h1 class="title">Before we start, we need a nickname</h1>
+				<h2 class="subtitle">this will be the default nickname people will see you as in every session</h2>
+
+				<div class="columns">
+					<div class="column is-6">
+						<div class="columns">
+							<div class="column">
+								<p class="control has-icon">
+									<input class="input nickname" type="text" placeholder="Nickname">
+									<span class="icon is-small">
+										<i class="fa fa-user"></i>
+									</span>
+								</p>
+							</div>
+							<div class="column">
+								<button class="button is-success custom ready-button">
+									I'm ready!
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
+
+		<div class="start-ui">
+			<div class="container section is-centered">
+				<div class="columns">
+					<div class="column">
+						<p class="control">
+							<button class="button is-success is-large connect-button custom">Connect</button>
+						</p>
+					</div>
+					<div class="column">
+						<p class="control">
+							<button class="button is-success is-large create-button custom">Create</button>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="main-ui">
+		<!-- TODO: chat here -->
+		</div>
+
+		<div class="connection-ui container">
+		</div>
+
+		<!-- OTHER STUFF TO BE REUSED -->
+
+		<div class="modal">
+			<div class="modal-background"></div>
+			<div class="modal-content">
+				<div class="box">
+					<article class="media">
+    					<div class="media-content">
+							<h1 class="title">Nickname in use!</h1>
+							<h2 class="subtitle">please choose a different one</h2>
+							<div class="content"></div>
+						</div>
+					</article>
+				</div>
+			</div>
+			<button class="modal-close"></button>
+		</div>
+
+		<script type="text/javascript">
+			function setModalText(title, subtitle) {
+				$(".modal .title").text(title);
+				$(".modal .subtitle").text(subtitle);
+			}
+
+			function setModalEnabled() {
+				$("html").addClass("is-clipped");
+				$(".modal").addClass("is-active");
+			}
+
+			function setModalContent(html) {
+				$(".modal .content").html(html);
+			}
+
+			function addLogLine(text) {
+				$(".connection-ui").append("<p>" + text + "</p>").fadeIn(100);
+			}
+
+			var currentNick = "";
+
+			$(document).ready(function() {
+				$(".main-ui").hide();
+				$(".start-ui").hide();
+			});
+
+			$(".start-ui button").click(function(e) {
+				// TODO: checks if shit is valid
+				var type = "";
+
+				switch($(this).text()) {
+					case "Connect":
+					type = "connect";
+					break;
+					case "Create":
+					type = "create";
+					break;
+				}
+
+				if (type == "connect") {
+					setModalText("Connect", "please enter the session id you want to connect to");
+					setModalContent("<p class=\"control has-icon\"> \
+									<input class=\"input sessionid\" type=\"text\" placeholder=\"Session ID\"> \
+									<span class=\"icon is-small\"> \
+										<i class=\"fa fa-key\"></i> \
+									</span> \
+								</p> \
+								<p class=\"control\"> \
+									<button class=\"button is-success session-connect custom\">Connect</button> \
+								</p>"); // TODO:
+					setModalEnabled(true);
+					// TODO: checks whether session exists
+					// TODO: connect to session
+				}
+				else if (type == "create") {
+					// TODO: create new session
+				}
+				// TODO: check if nickname is in use on connection
+				/*
+				setModalText("Nickname in use!", "please choose a different one");
+				setModalContent("");
+				setModalEnabled();*/
+
+				$(".connection-ui").fadeIn(300, function() {
+					// TODO: log connection stuff here
+				});
+			});
+
+			$(".intro-ui .ready-button").click(function() {
+				currentNick = $(".intro-ui input.nickname").val();
+
+				if (currentNick == "") {
+					// TODO: if nick is empty checks
+					setModalText("No nickname!", "please specify a nickname");
+					setModalContent("");
+					setModalEnabled();
+					return;
+				}
+				else if (currentNick.length > 20) {
+					// TODO: nick too long
+					setModalText("Too long!", "your chosen nickname is over 20 letters long");
+					setModalContent("");
+					setModalEnabled();
+					return;
+				}
+
+				$(".intro-ui").fadeOut(500, function() {
+					$(".start-ui").fadeIn(300);
+				});
+			});
+
+			$('.modal-background, .modal-close').click(function() {
+				$('html').removeClass('is-clipped');
+				$(this).parent().removeClass('is-active');
+			});
+		</script>
 	</body>
 </html>

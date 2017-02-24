@@ -1,27 +1,62 @@
-html,
+@import url("bower_components/fira/fira.css");
+@import url("bower_components/bulma/css/bulma.css");
+@import url("bower_components/font-awesome/css/font-awesome.min.css");
+
+/*
+	TODO: chat window
+	TODO: create/join session
+	TODO: error display
+*/
+
+/* FONT-RELATED */
+
+* {
+	font-family: "Fira Sans";
+}
+
+h1.title {
+	font-weight: 400;
+}
+
+h2.subtitle {
+	font-weight: 400;
+}
+
+/* GENERAL STYLE */
+
 body {
-	padding: 0;
+	background: url(assets/title-background.jpg) no-repeat center center fixed;
+	background-size: cover;
 	margin: 0;
-}
-
-body {
-	font-family: -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
-}
-
-header {
+	padding: 0;
+	height: 100%;
+	width: 100%;
 	position: absolute;
-	width: 500px;
-	height: 250px;
-	top: 50%;
-	left: 50%;
-	margin-top: -125px;
-	margin-left: -250px;
-	text-align: center;
 }
 
-header h1 {
-	font-size: 60px;
-	font-weight: 100;
-	margin: 0;
-	padding: 0;
+.section {
+	background-color: rgba(0, 0, 0, 0);
 }
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.input {
+	background-color: rgba(255, 255, 255, 0.6);
+	border-radius: 0;
+	border: 1px solid rgba(0, 0, 0, 0);
+}
+
+.input:active,
+.input:focus,
+.input:hover {
+	border: 1px solid #F27CFD;
+}
+
+.button.is-success.custom {
+	background-color: #F27CFD;
+	border-radius: 0px;
+}
+
+/* PAGE X STYLE */
