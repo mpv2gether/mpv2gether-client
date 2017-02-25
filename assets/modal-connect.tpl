@@ -8,6 +8,6 @@
         </p> 
     </div> 
     <div class="column"> 
-        <button class="button is-success session-connect custom">Connect</button> 
+        <button class="button is-success session-connect-inner custom" onclick="joinButton();">Connect</button> 
     </div> 
 </div>

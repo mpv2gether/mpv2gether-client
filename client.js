@@ -22,6 +22,10 @@ function addLogLine(text) {
     $(".connection-ui").append("<p>" + text + "</p>").fadeIn(100);
 }
 
+function joinButton() {
+    msg.joinSession(currentNick, $("input.sessionid").val());
+}
+
 var currentNick = "";
 
 $(document).ready(function() {
@@ -43,13 +47,13 @@ $(document).ready(function() {
 
         if (type == "connect") {
             setModalText("Connect", "please enter the session id you want to connect to");
-            setModalContent("modal-connect.tpl"); // TODO:
+            setModalContent("modal-connect.tpl");
             setModalEnabled(true);
+
             // TODO: checks whether session exists
-            // TODO: connect to session
         }
         else if (type == "create") {
-            // TODO: create new session
+            msg.createSession(currentNick);
         }
         // TODO: check if nickname is in use on connection
         /*
@@ -91,4 +95,6 @@ $(document).ready(function() {
     });
 });
 
-const websocketHandler = require("./websockets.js");
+const Messaging = require("./websockets.js");
+const msg = new Messaging();
+msg.connect();
