@@ -66,16 +66,30 @@ body {
 .input:active,
 .input:focus,
 .input:hover {
-	border: 1px solid #F27CFD;
+	border: 1px solid #F27CFD;	
+}
+
+.button.is-success.custom:hover {
+	background-color: rgb(242, 124, 253);
+	transition: 0.4s;
 }
 
 .button.is-success.custom {
-	background-color: #F27CFD;
+	background-color: rgba(242, 124, 253, 0.8);
 	border-radius: 0px;
+	transition: 0.4s;
 }
 
 .modal .subtitle:not(:last-child) {
 	margin-bottom: 1.1rem;
+}
+
+.connect-button.custom,
+.create-button.custom {
+	width: 100%;
+	height: 40%;
+	font-size: 3rem;
+	line-height: 10rem;
 }
 
 /* PAGE X STYLE */
