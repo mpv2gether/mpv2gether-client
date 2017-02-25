@@ -18,10 +18,6 @@ function setModalContent(html) {
     }
 }
 
-function addLogLine(text) {
-    $(".connection-ui").append("<p>" + text + "</p>").fadeIn(100);
-}
-
 function joinButton() {
     msg.joinSession(currentNick, $("input.sessionid").val());
 }
@@ -56,14 +52,9 @@ $(document).ready(function() {
             msg.createSession(currentNick);
         }
         // TODO: check if nickname is in use on connection
-        /*
-        setModalText("Nickname in use!", "please choose a different one");
-        setModalContent("");
-        setModalEnabled();*/
 
-        $(".connection-ui").fadeIn(300, function() {
-            // TODO: log connection stuff here
-        });
+        $(".start-ui").fadeOut(500);
+        $(".hero").fadeOut(500);
     });
 
     $(".intro-ui .ready-button").click(function() {
