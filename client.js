@@ -22,6 +22,18 @@ function joinButton() {
     msg.joinSession(currentNick, $("input.sessionid").val());
 }
 
+function tailScroll() {
+    var height = $(".chatbox").get(0).scrollHeight;
+    $(".chatbox").animate({
+        scrollTop: height
+    }, 500);
+}
+
+function appendMsg(name, msg, color = "#F27CFD") {
+    $("<div />").html("<span style=\"color: " + color + "\">" + name + "</span>: " + msg).appendTo(".chatbox");
+    tailScroll();
+}
+
 var currentNick = "";
 
 $(document).ready(function() {
@@ -54,7 +66,10 @@ $(document).ready(function() {
         // TODO: check if nickname is in use on connection
 
         $(".start-ui").fadeOut(500);
-        $(".hero").fadeOut(500);
+        $(".hero").fadeOut(500, function() {
+            $(".main-ui").fadeIn(300);
+        });
+        /*$("html").css("opacity", "0");*/
     });
 
     $(".intro-ui .ready-button").click(function() {
@@ -83,6 +98,15 @@ $(document).ready(function() {
     $(".modal-background, .modal-close").click(function() {
         $("html").removeClass("is-clipped");
         $(this).parent().removeClass("is-active");
+    });
+
+    $(".input.chat").on('keyup', function (e) {
+        if (e.keyCode == 13) {
+            appendMsg(currentNick, $(".input.chat").val());
+            $(".input.chat").val("");
+            tailScroll();
+            e.preventDefault();
+        }
     });
 });
 

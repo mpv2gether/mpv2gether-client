@@ -26,7 +26,7 @@ h2.subtitle {
 
 .draggable {
 	width: 100%;
-	height: 2em;
+	height: 24px;
 	top: 0;
 	left: 0;
 	position: absolute;
@@ -36,7 +36,7 @@ h2.subtitle {
 }
 
 .hero {
-	margin-top: 2em;
+	margin-top: 24px;
 }
 
 body {
@@ -92,4 +92,71 @@ body {
 	line-height: 10rem;
 }
 
-/* PAGE X STYLE */
+.main-ui .chat {
+	width: 325px;
+	right: 0;
+	top: 24px;
+	bottom: 0;
+	position: absolute;
+	background-color: rgba(0, 0, 0, 0.8);
+}
+
+.main-ui .input.chat {
+	background-color: rgba(255, 255, 255, 0.1);
+	color: #fff;
+	position: absolute;
+	top: 85%;
+	width: 100%;
+}
+
+.main-ui .chatbox,
+.main-ui h1.title {
+	color: #fff;
+}
+
+.main-ui .chat .section {  
+	padding: 1.5rem;
+}
+
+.main-ui .chat .chatbox {
+	top: 0%;
+	height: 85%;
+	width: 100%;
+	padding: 1em;
+	position: absolute;
+	box-sizing: border-box;
+	overflow: hidden;
+	background-color: rgba(0, 0, 0, 0.7);
+}
+
+.main-ui .chat .controls {
+	top: 90%;
+	width: 100%;
+	position: absolute;
+}
+
+.main-ui .chat .controls .icon {
+	color: rgba(242, 124, 253, 0.8);
+}
+
+.main-ui .chat .controls .icon:hover {
+	color: rgb(242, 124, 253);
+	cursor: pointer;
+}
+
+.main-ui .chat .controls span {
+	padding-top: 5%;
+}
+
+.main-ui .progress {
+	width: 1276px;
+	padding-left: 2px;
+	padding-right: 2px;
+	bottom: 8px;
+	position: absolute;
+	left: 0;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: #F27CFD;
+}
