@@ -85,8 +85,8 @@
 				<div class="box">
 					<article class="media">
     					<div class="media-content">
-							<h1 class="title">Nickname in use!</h1>
-							<h2 class="subtitle">please choose a different one</h2>
+							<h1 class="title"></h1>
+							<h2 class="subtitle"></h2>
 							<div class="content"></div>
 						</div>
 					</article>
@@ -107,7 +107,11 @@
 			}
 
 			function setModalContent(html) {
-				$(".modal .content").html(html);
+				$(".modal .content").remove();
+				if (html) {
+					$(".modal .media-content").append("<div class=\"content\"></div>")
+					$(".modal .content").html(html);
+				}
 			}
 
 			function addLogLine(text) {
@@ -136,15 +140,19 @@
 
 				if (type == "connect") {
 					setModalText("Connect", "please enter the session id you want to connect to");
-					setModalContent("<p class=\"control has-icon\"> \
+					setModalContent("<div class=\"columns\"> \
+									<div class=\"column\"> \
+									<p class=\"control has-icon\"> \
 									<input class=\"input sessionid\" type=\"text\" placeholder=\"Session ID\"> \
 									<span class=\"icon is-small\"> \
 										<i class=\"fa fa-key\"></i> \
 									</span> \
-								</p> \
-								<p class=\"control\"> \
+									</p> \
+								</div> \
+								<div class=\"column\"> \
 									<button class=\"button is-success session-connect custom\">Connect</button> \
-								</p>"); // TODO:
+								</div> \
+								</div>"); // TODO:
 					setModalEnabled(true);
 					// TODO: checks whether session exists
 					// TODO: connect to session

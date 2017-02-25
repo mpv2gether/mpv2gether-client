@@ -32,7 +32,7 @@ h2.subtitle {
 	position: absolute;
 	-webkit-user-select: none;
 	-webkit-app-region: drag;
-	background-color: #313131;
+	background-color: #282828;
 }
 
 .hero {
@@ -60,7 +60,7 @@ body {
 .input {
 	background-color: rgba(255, 255, 255, 0.6);
 	border-radius: 0;
-	border: 1px solid rgba(0, 0, 0, 0);
+	border: 1px solid rgba(0, 0, 0, 0.4);
 }
 
 .input:active,
@@ -72,6 +72,10 @@ body {
 .button.is-success.custom {
 	background-color: #F27CFD;
 	border-radius: 0px;
+}
+
+.modal .subtitle:not(:last-child) {
+	margin-bottom: 1.1rem;
 }
 
 /* PAGE X STYLE */
