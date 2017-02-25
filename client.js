@@ -85,8 +85,10 @@ $(document).ready(function() {
         });
     });
 
-    $('.modal-background, .modal-close').click(function() {
-        $('html').removeClass('is-clipped');
-        $(this).parent().removeClass('is-active');
+    $(".modal-background, .modal-close").click(function() {
+        $("html").removeClass("is-clipped");
+        $(this).parent().removeClass("is-active");
     });
 });
+
+const websocketHandler = require("./websockets.js");
