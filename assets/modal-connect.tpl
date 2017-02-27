@@ -1,7 +1,7 @@
 <div class="columns"> 
     <div class="column"> 
         <p class="control has-icon"> 
-            <input class="input sessionid" type="text" placeholder="Session ID"> 
+            <input class="input sessionkey" type="text" placeholder="Session Key"> 
             <span class="icon is-small"> 
                <i class="fa fa-key"></i> 
             </span> 
