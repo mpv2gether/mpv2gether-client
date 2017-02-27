@@ -5,9 +5,6 @@ function Messaging() {
     this.events = {};
 }
 
-// msg = new Messaging();
-// msg.connect();
-
 Messaging.prototype._handleMessage = function(type, message) {
     if (this.events[type])
         this.events[type](message);
@@ -40,7 +37,7 @@ Messaging.prototype.createSession = function(nick) {
         "type": "create_session",
         "message": {
             "nick": nick
-        } 
+        }
     };
 
     this._send(message);
