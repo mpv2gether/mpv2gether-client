@@ -114,25 +114,25 @@ $(document).ready(function() {
         }
     });
 
-    appendMsg("mpv window handle", remote.getGlobal("mpvWindow"));
+    appendMsg("mpv window handle", remote.getGlobal("mpvWindow"), "#00FF72");
 
     msg.on("created_session", function(message) {
-        appendMsg("session key", message["session_key"]);
-        appendMsg("your nick", message["nick"]);
+        appendMsg("session key", message["session_key"], "#00FF72");
+        appendMsg("your nick", message["nick"], "#00FF72");
     });
 
     msg.on("user_joined", function(message) {
         if (message["nick"] == currentNick){
-            appendMsg("session key", currentSessionKey);
-            appendMsg("your nick", message["nick"]);
+            appendMsg("session key", currentSessionKey, "#00FF72");
+            appendMsg("your nick", message["nick"], "#00FF72");
             switchToMainUi();
             return;
         }
-        appendMsg("user joined", message["nick"]);
+        appendMsg("user joined", message["nick"], "#49F0FF");
     });
 
     msg.on("user_left", function(message) {
-        appendMsg("user left", message["nick"]);
+        appendMsg("user left", message["nick"], "#FF8400");
     });
 
     msg.on("message", function(message) {
@@ -152,7 +152,7 @@ $(document).ready(function() {
             case "missing_key":
             default:
                 //never should happen
-                appendMsg("error", message["error"]);
+                appendMsg("error", message["error"], "#FF4343");
                 break;
         }
     });
