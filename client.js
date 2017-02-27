@@ -1,3 +1,9 @@
+const electron = require("electron")
+const remote = electron.remote
+
+var currentNick = "";
+var currentSessionKey = "";
+
 function setModalText(title, subtitle) {
     $(".modal .title").text(title);
     $(".modal .subtitle").text(subtitle);
@@ -19,7 +25,10 @@ function setModalContent(html) {
 }
 
 function joinButton() {
-    msg.joinSession(currentNick, $("input.sessionid").val());
+    currentSessionKey = $("input.sessionkey").val();
+    msg.joinSession(currentNick, currentSessionKey);
+    $("html").removeClass("is-clipped");
+    $(".modal").removeClass("is-active")
 }
 
 function tailScroll() {
@@ -34,56 +43,49 @@ function appendMsg(name, msg, color = "#F27CFD") {
     tailScroll();
 }
 
-var currentNick = "";
+function switchToMainUi(){
+    $(".start-ui").fadeOut(500);
+    $(".hero").fadeOut(500, function() {
+        $(".main-ui").fadeIn(300);
+    });
+}
+
+function sessionKeyModal(subtitle){
+    setModalText("Connect", subtitle ? subtitle : "please enter the session key you want to connect to");
+    setModalContent("modal-connect.tpl");
+    setModalEnabled(true);
+}
 
 $(document).ready(function() {
     $(".main-ui").hide();
     $(".start-ui").hide();
 
     $(".start-ui button").click(function(e) {
-        // TODO: checks if shit is valid
         var type = "";
 
         switch($(this).text()) {
             case "Connect":
-            type = "connect";
-            break;
+                sessionKeyModal();
+                // TODO: handle nickname in use error
+                break;
             case "Create":
-            type = "create";
-            break;
+                msg.createSession(currentNick);
+                switchToMainUi();
+                break;
         }
-
-        if (type == "connect") {
-            setModalText("Connect", "please enter the session id you want to connect to");
-            setModalContent("modal-connect.tpl");
-            setModalEnabled(true);
-
-            // TODO: checks whether session exists
-        }
-        else if (type == "create") {
-            msg.createSession(currentNick);
-        }
-        // TODO: check if nickname is in use on connection
-
-        $(".start-ui").fadeOut(500);
-        $(".hero").fadeOut(500, function() {
-            $(".main-ui").fadeIn(300);
-        });
-        /*$("html").css("opacity", "0");*/
     });
 
     $(".intro-ui .ready-button").click(function() {
         currentNick = $(".intro-ui input.nickname").val();
 
         if (currentNick == "") {
-            // TODO: if nick is empty checks
             setModalText("No nickname!", "please specify a nickname");
             setModalContent("");
             setModalEnabled();
             return;
         }
+
         else if (currentNick.length > 20) {
-            // TODO: nick too long
             setModalText("Too long!", "your chosen nickname is over 20 letters long");
             setModalContent("");
             setModalEnabled();
@@ -102,10 +104,56 @@ $(document).ready(function() {
 
     $(".input.chat").on('keyup', function (e) {
         if (e.keyCode == 13) {
-            appendMsg(currentNick, $(".input.chat").val());
+            let t_message = $(".input.chat").val();
+            if (t_message == ""){
+                return;
+            }
+            msg.chatMessage(t_message);
             $(".input.chat").val("");
-            tailScroll();
             e.preventDefault();
+        }
+    });
+
+    appendMsg("mpv window handle", remote.getGlobal("mpvWindow"));
+
+    msg.on("created_session", function(message) {
+        appendMsg("session key", message["session_key"]);
+        appendMsg("your nick", message["nick"]);
+    });
+
+    msg.on("user_joined", function(message) {
+        if (message["nick"] == currentNick){
+            appendMsg("session key", currentSessionKey);
+            appendMsg("your nick", message["nick"]);
+            switchToMainUi();
+            return;
+        }
+        appendMsg("user joined", message["nick"]);
+    });
+
+    msg.on("user_left", function(message) {
+        appendMsg("user left", message["nick"]);
+    });
+
+    msg.on("message", function(message) {
+        appendMsg(message["nick"], message["message"]);
+    });
+
+    msg.on("error", function(message) {
+        console.log(JSON.stringify(message));
+
+        switch (message["error_type"]){
+            case "invalid_session_key":
+                sessionKeyModal("that session key was invalid");
+                break;
+            case "not_json":
+            case "no_type":
+            case "invalid_type":
+            case "missing_key":
+            default:
+                //never should happen
+                appendMsg("error", message["error"]);
+                break;
         }
     });
 });
