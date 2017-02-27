@@ -125,7 +125,7 @@ body {
 	padding: 1em;
 	position: absolute;
 	box-sizing: border-box;
-	overflow: hidden;
+	overflow: scroll;
 	background-color: rgba(0, 0, 0, 0.7);
 }
 
