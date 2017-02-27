@@ -46,7 +46,7 @@ function createChildWindow() {
 	childWindow.setAspectRatio(16/9);
 
 	var windowHandle = childWindow.getNativeWindowHandle().readUInt32LE(0);
-	console.log(windowHandle);
+	global.mpvWindow = windowHandle;
 }
 
 function createMainWindow() {
