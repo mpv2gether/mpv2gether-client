@@ -4,6 +4,7 @@ const remote = electron.remote
 var currentNick = "";
 var currentSessionKey = "";
 var mpvHandle = remote.getGlobal("mpvWindow");
+var playing = true;
 
 function setModalText(title, subtitle) {
 	$(".modal .title").text(title);
@@ -61,6 +62,7 @@ function playUrl() {
 	mpv.play($("input.url").val());
 	$("html").removeClass("is-clipped");
 	$(".modal").removeClass("is-active")
+	playing = true;
 }
 
 $(document).ready(function() {
@@ -130,13 +132,26 @@ $(document).ready(function() {
 				break;
 			case "fa-play":
 				mpv.resume();
+				playing = true;
 				break;
 			case "fa-pause":
 				mpv.pause();
+				playing = false;
 				break;
 			case "fa-stop":
 				mpv.stop();
+				playing = false;
 				break;
+		}
+	});
+
+	$(".main-ui .video").click(function(e){
+		if (playing){
+			mpv.pause();
+			playing = false;
+		} else {
+			mpv.resume();
+			playing = true;
 		}
 	});
 
@@ -181,6 +196,12 @@ $(document).ready(function() {
 				appendMsg("error", message["error"], "#FF4343");
 				break;
 		}
+	});
+
+	msg.on("connection_refused", function(message){
+		setModalText("Connection error", "our server is most likely down. which probably means you're one of our developers and you need to run the server.");
+		setModalContent(null);
+		setModalEnabled(true);
 	});
 });
 
