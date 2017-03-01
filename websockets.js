@@ -30,6 +30,13 @@ Messaging.prototype.connect = function(){
 		let data = JSON.parse(json)
 		msgthis._handleMessage(data["type"], data["message"]);
 	});
+
+	this.ws.on("error", function(event){
+		var connrefused_regex = /ECONNREFUSED/;
+		if (connrefused_regex.exec(event.toString().split("\n")[0])){
+			msgthis._handleMessage("connection_refused", null);
+		}
+	});
 }
 
 Messaging.prototype.createSession = function(nick) {
