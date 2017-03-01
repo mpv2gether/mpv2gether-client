@@ -3,6 +3,7 @@ const remote = electron.remote
 
 var currentNick = "";
 var currentSessionKey = "";
+var mpvHandle = remote.getGlobal("mpvWindow");
 
 function setModalText(title, subtitle) {
 	$(".modal .title").text(title);
@@ -54,6 +55,12 @@ function sessionKeyModal(subtitle){
 	setModalText("Connect", subtitle ? subtitle : "please enter the session key you want to connect to");
 	setModalContent("modal-connect.tpl");
 	setModalEnabled(true);
+}
+
+function playUrl() {
+	mpv.play($("input.url").val());
+	$("html").removeClass("is-clipped");
+	$(".modal").removeClass("is-active")
 }
 
 $(document).ready(function() {
@@ -114,7 +121,26 @@ $(document).ready(function() {
 		}
 	});
 
-	appendMsg("mpv window handle", remote.getGlobal("mpvWindow"), "#00FF72");
+	$(".main-ui .controls i").click(function(e) {
+		switch(this.classList[1]) {
+			case "fa-link":
+				setModalText("Enter URL", "Enter the URL of the video you wish to play");
+				setModalContent("modal-url.tpl");
+				setModalEnabled();
+				break;
+			case "fa-play":
+				mpv.resume();
+				break;
+			case "fa-pause":
+				mpv.pause();
+				break;
+			case "fa-stop":
+				mpv.stop();
+				break;
+		}
+	});
+
+	appendMsg("mpv window handle", mpvHandle, "#00FF72");
 
 	msg.on("created_session", function(message) {
 		appendMsg("session key", message["session_key"], "#00FF72");
@@ -161,3 +187,7 @@ $(document).ready(function() {
 const Messaging = require("./websockets.js");
 const msg = new Messaging();
 msg.connect();
+
+const Player = require("./player.js");
+const mpv = new Player();
+mpv.initialise(mpvHandle);
