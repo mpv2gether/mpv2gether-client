@@ -20,7 +20,7 @@ Player.prototype.initialise = function(wid) {
 			"verbose": true,
 			"socket": socket
 		}, [
-			//"--wid=" + wid
+			"--wid=" + wid,
 			"--load-scripts=no"
 		]);
 	}
@@ -34,9 +34,9 @@ Player.prototype.play = function(media) {
 	var isUrl = url.isUri(media);
 
 	if (isUrl)
-		this.currentPlayer.loadStream(media, true);
+		this.currentPlayer.loadStream(media);
 	else
-		this.currentPlayer.loadFile(media, true);
+		this.currentPlayer.loadFile(media);
 
 	console.log("playing " + media + " as " + (isUrl ? "url" : "file"));
 }
