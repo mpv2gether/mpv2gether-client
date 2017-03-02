@@ -77,7 +77,7 @@ Messaging.prototype.videoStatus = function(playing){
 	let message = {
 		"type": "video_status",
 		"message": {
-			"playing": playing
+			"status": playing ? "play" : "pause"
 		}
 	};
 
