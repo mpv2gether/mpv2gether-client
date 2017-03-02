@@ -59,7 +59,9 @@ function sessionKeyModal(subtitle){
 }
 
 function playUrl() {
-	mpv.play($("input.url").val());
+	var video = $("input.url").val();
+	mpv.play(video);
+	msg.loadVideo(video);
 	$("html").removeClass("is-clipped");
 	$(".modal").removeClass("is-active")
 	playing = true;
@@ -133,14 +135,17 @@ $(document).ready(function() {
 			case "fa-play":
 				mpv.resume();
 				playing = true;
+				msg.videoStatus(playing);
 				break;
 			case "fa-pause":
 				mpv.pause();
 				playing = false;
+				msg.videoStatus(playing);
 				break;
 			case "fa-stop":
 				mpv.stop();
 				playing = false;
+				msg.videoStatus(playing);
 				break;
 		}
 	});
@@ -149,9 +154,11 @@ $(document).ready(function() {
 		if (playing){
 			mpv.pause();
 			playing = false;
+			msg.videoStatus(playing);
 		} else {
 			mpv.resume();
 			playing = true;
+			msg.videoStatus(playing);
 		}
 	});
 
@@ -177,17 +184,43 @@ $(document).ready(function() {
 	});
 
 	msg.on("user_joined", function(message) {
-		if (message["nick"] == currentNick){
-			appendMsg("session key", currentSessionKey, "#00FF72");
-			appendMsg("your nick", message["nick"], "#00FF72");
-			switchToMainUi();
-			return;
-		}
 		appendMsg("user joined", message["nick"], "#49F0FF");
 	});
 
 	msg.on("user_left", function(message) {
 		appendMsg("user left", message["nick"], "#FF8400");
+	});
+
+	msg.on("session_info", function(message) {
+		appendMsg("session key", currentSessionKey, "#00FF72");
+		appendMsg("your nick", currentNick, "#00FF72");
+		appendMsg("curently in the session", message["users"].join(", "), "#00FF72");
+		
+		var video = message["video"];
+		if (video){
+			mpv.play(video);
+			playing = true;
+			if(!message["playing"]){
+				mpv.pause();
+				playing = false;
+			}
+		}
+		switchToMainUi();
+		return;
+	});
+
+	msg.on("load_video", function(message){
+		mpv.play(message["video"]);
+		playing = true;
+	});
+
+	msg.on("video_status", function(message){
+		playing = message["playing"]
+		if (playing){
+			mpv.resume();
+		} else {
+			mpv.pause();
+		}
 	});
 
 	msg.on("message", function(message) {

@@ -73,6 +73,28 @@ Messaging.prototype.chatMessage = function(t_message) {
 	this._send(message);
 }
 
+Messaging.prototype.videoStatus = function(playing){
+	let message = {
+		"type": "video_status",
+		"message": {
+			"playing": playing
+		}
+	};
+
+	this._send(message);
+}
+
+Messaging.prototype.loadVideo = function(video){
+	let message = {
+		"type": "load_video",
+		"message": {
+			"video": video
+		}
+	}
+
+	this._send(message);
+}
+
 module.exports = Messaging;
 
 Messaging.prototype.on = function(type, func) {
