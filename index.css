@@ -66,7 +66,7 @@ body {
 .input:active,
 .input:focus,
 .input:hover {
-	border: 1px solid #F27CFD;	
+	border: 1px solid #F27CFD;
 }
 
 .button.is-success.custom:hover {
@@ -123,7 +123,7 @@ body {
 	color: #fff;
 }
 
-.main-ui .chat .section {  
+.main-ui .chat .section {
 	padding: 1.5rem;
 }
 
@@ -168,4 +168,24 @@ body {
 
 ::-webkit-scrollbar-thumb {
 	background-color: #F27CFD;
+}
+
+.window-controls {
+	position: absolute;
+	top: 5px;
+	right: 10px;
+}
+
+.window-controls .icon {
+	color: rgba(255, 255, 255, 0.4);
+	transition: 0.1s;
+	-webkit-app-region: no-drag;
+}
+
+.window-controls .icon:hover {
+	color: rgba(255, 255, 255, 1);
+}
+
+.window-controls .icon:not(:last-child) {
+	margin-right: 1em;
 }

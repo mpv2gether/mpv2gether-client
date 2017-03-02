@@ -155,6 +155,20 @@ $(document).ready(function() {
 		}
 	});
 
+	$(".window-controls i").click(function(e) {
+		switch (this.classList[1]) {
+			case "fa-window-minimize":
+				remote.BrowserWindow.getFocusedWindow().minimize();
+				break;
+			case "fa-window-maximize":
+				// TODO:
+				break;
+			case "fa-window-close":
+				remote.app.quit();
+				break;
+		}
+	});
+
 	appendMsg("mpv window handle", mpvHandle, "#00FF72");
 
 	msg.on("created_session", function(message) {
