@@ -27,7 +27,7 @@
   "dependencies": {
     "electron-debug": "^1.0.0",
     "node-mpv": "^1.0.3",
-    "uws": "^0.13.0",
+    "uws": "^0.14.5",
     "valid-url": "^1.0.9"
   },
   "devDependencies": {
