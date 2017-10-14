@@ -195,7 +195,7 @@ $(document).ready(function() {
 		appendMsg("session key", currentSessionKey, "#00FF72");
 		appendMsg("your nick", currentNick, "#00FF72");
 		appendMsg("curently in the session", message["users"].join(", "), "#00FF72");
-		
+
 		var video = message["video"];
 		if (video){
 			mpv.play(video);
@@ -252,10 +252,10 @@ $(document).ready(function() {
 	});
 });
 
-const Messaging = require("./websockets.js");
+const Messaging = require("../node/websockets.js");
 const msg = new Messaging();
 msg.connect();
 
-const Player = require("./player.js");
+const Player = require("../node/player.js");
 const mpv = new Player();
 mpv.initialise(mpvHandle);

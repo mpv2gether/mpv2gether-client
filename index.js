@@ -32,9 +32,9 @@ function onResized() {
 function createChildWindow() {
 	var pos = mainWindow.getPosition();
 	childWindow = new electron.BrowserWindow({
-		parent: mainWindow, 
-		width: 1280, 
-		height: 720, 
+		parent: mainWindow,
+		width: 1280,
+		height: 720,
 		transparent: true,
 		frame: false,
 		resizable: false,
@@ -56,7 +56,7 @@ function createMainWindow() {
 		frame: false
 	});
 
-	win.loadURL(`file://${__dirname}/index.html`);
+	win.loadURL(`file://${__dirname}/client/index.html`);
 	win.on('closed', onClosed);
 	win.on("move", onMoved);
 	win.on("resize", onResized);
