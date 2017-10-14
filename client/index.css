@@ -1,6 +1,6 @@
-@import url("bower_components/fira/fira.css");
-@import url("bower_components/bulma/css/bulma.css");
-@import url("bower_components/font-awesome/css/font-awesome.min.css");
+@import url("../bower_components/fira/fira.css");
+@import url("../bower_components/bulma/css/bulma.css");
+@import url("../bower_components/font-awesome/css/font-awesome.min.css");
 
 /*
 	TODO: chat window
