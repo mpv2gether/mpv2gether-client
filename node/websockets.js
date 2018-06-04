@@ -22,7 +22,7 @@ Messaging.prototype._send = function(message) {
 }
 
 Messaging.prototype.connect = function(){
-	this.ws = new WebSocket('ws://localhost:8765/ws');
+	this.ws = new WebSocket('ws://getdownon.it:8765');
 
 	var msgthis = this;
 
